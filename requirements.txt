@@ -1,0 +1,11 @@
+# professor-balthazar-agent/requirements.txt
+
+google-generativeai==0.3.0
+pytest==8.4.2
+pytest-asyncio==1.2.0
+uuid
+typing-extensions
+asyncio
+python-dotenv
+requests
+colorama
