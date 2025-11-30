@@ -1,23 +1,24 @@
 import streamlit as st
-from graph import app  # Your new graph
-from langchain_core.messages import HumanMessage
+import asyncio
+from consultation_agent import consult_professor_balthazar  # Her function
 
-st.title("🤖 Professor Balthazar Advisor")
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+st.set_page_config(page_title="Professor Baltazar", page_icon="🎩")
+st.title("Professor Baltazar's Magic Machine")
+st.caption("Type your problem—watch the magic! (Creative reframing + emotional support)")
 
-for msg in st.session_state.messages:
-    st.chat_message(msg["type"]).markdown(msg["content"])
+if "responses" not in st.session_state:
+    st.session_state.responses = []
 
-if prompt := st.chat_input("Your problem?"):
-    st.session_state.messages.append({"type": "user", "content": prompt})
-    with st.chat_message("user"): st.markdown(prompt)
-    
-    inputs = {"messages": [HumanMessage(content=prompt)]}
-    with st.chat_message("assistant"):
-        for output in app.stream(inputs):
-            resp = output["messages"][-1].content
-            st.markdown(resp)
-        st.session_state.messages.append({"type": "assistant", "content": resp})
+for resp in st.session_state.responses:
+    st.write("**Baltazar:** " + resp)
 
-st.caption("Creative solutions from Baltazar's team!")
+if prompt := st.chat_input("What's your problem today?"):
+    with st.spinner("The machine whirs..."):
+        response = asyncio.run(consult_professor_balthazar(prompt))
+        # Your twist: If angry, add rephrase
+        if "angry" in prompt.lower():
+            response += "\n\nEmotional Tip: Rephrase to polite: 'I appreciate the feedback—let's align.'"
+    st.session_state.responses.append(response)
+    st.rerun()
+
+st.caption("Creative inventions from Baltazar! ⚙️✨")
