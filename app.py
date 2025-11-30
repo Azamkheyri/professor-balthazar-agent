@@ -2,7 +2,7 @@ import streamlit as st
 from graph import app  # Your new graph
 from langchain_core.messages import HumanMessage
 
-st.title("🤖 Professor Baltazar Advisor")
+st.title("🤖 Professor Balthazar Advisor")
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
