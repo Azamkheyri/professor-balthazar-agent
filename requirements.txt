@@ -9,3 +9,7 @@ asyncio
 python-dotenv
 requests
 colorama
+langgraph==0.2.5
+langchain==0.2.0
+langchain-groq==0.1.0
+streamlit==1.32.0
